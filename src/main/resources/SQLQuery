@@ -1,0 +1,6 @@
+insert into users (id, age, firstname, lastname, password, email) VALUES
+(1,37,'admin','admin','$2a$12$7t/zUrhOFlhY1JJNJuowrOc39IdjsN9qFG/WtXHyJK5hj0Q9dJE0G','admin@gmail.com');
+insert into roles(id, name) VALUES (1,'ROLE_ADMIN');
+insert into roles(id, name) VALUES (2,'ROLE_USER');
+insert into users_roles(user_id, role_id) VALUES (1,1);
+insert into users_roles(user_id, role_id) VALUES (1,2)es_id, users_id) VALUES (1,2,2,1);
