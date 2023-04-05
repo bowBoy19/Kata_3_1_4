@@ -11,14 +11,14 @@
     <title>Title</title>
 </head>
 <body>
-<div class="container-fluid ">
-    <nav class="navbar navbar-light bg-dark" style="justify-content: unset"
+<div class="container-fluid bg-dark">
+    <nav class="navbar navbar-light" style="justify-content: unset"
          th:each="user : ${user}">
         <span class="navbar-brand mb-0 h1" style="color:white"
               th:text="${user.username} + ' with roles: ' + ${user.roles}">
         </span>
         <a href="/logout">
-            <button type="button" class="btn btn-primary mr float-right" style="margin-left: 800px">Выйти</button>
+            <button type="button" class="btn btn-primary mr float-right" style="margin-left: 800px">Logout</button>
         </a>
     </nav>
 </div>
