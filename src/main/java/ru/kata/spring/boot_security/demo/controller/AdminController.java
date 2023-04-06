@@ -3,12 +3,12 @@ package ru.kata.spring.boot_security.demo.controller;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
     private final UserService userService;
 
@@ -16,7 +16,7 @@ public class AdminController {
         this.userService = userServiceInterface;
     }
 
-    @GetMapping("/admin")
+    @RequestMapping(method = RequestMethod.GET)
     public String showAllUsers(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("users", userService.allUsers());
         model.addAttribute("listRoles", userService.findRoles());
@@ -24,24 +24,24 @@ public class AdminController {
         return "admin";
     }
 
-    @PostMapping(value = "/admin/new")
+    @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user) {
         if (userService.check(user)) {
             userService.saveUser(user);
             return "redirect:/admin";
-
         } else {
             return "/error";
         }
     }
-    @DeleteMapping("/admin/delete/{id}")
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public String deleteUser(@PathVariable("id") Integer id) {
         userService.deleteUser(id);
         return "redirect:/admin";
     }
 
-    @PatchMapping("/admin/edit/{id}")
-    public String updateUser(@ModelAttribute("user") User user, BindingResult result, @PathVariable("id") Integer id) {
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.PATCH)
+    public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Integer id) {
         userService.updateUser(id, user);
         return "redirect:/admin";
     }

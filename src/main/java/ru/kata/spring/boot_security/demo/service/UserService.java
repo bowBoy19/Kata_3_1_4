@@ -6,14 +6,14 @@ import ru.kata.spring.boot_security.demo.model.User;
 import java.util.List;
 
 public interface UserService {
-    public User findUserById(Integer id);
-    public List<User> allUsers();
-    public void saveUser(User user);
-    public boolean deleteUser(int id);
-    public void addUser(User user);
-    public List<Role> findRoles();
-    public void updateUser(Integer id, User user);
-    public boolean check(User user);
+    User findUserById(Integer id);
+    List<User> allUsers();
+    void saveUser(User user);
+    boolean deleteUser(int id);
+    void addUser(User user);
+    List<Role> findRoles();
+    void updateUser(Integer id, User user);
+    boolean check(User user);
 
     User findByUsername(String email);
 }

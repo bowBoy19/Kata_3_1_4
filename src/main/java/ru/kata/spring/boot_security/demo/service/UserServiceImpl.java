@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -27,14 +28,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-
         return user;
     }
 
@@ -51,12 +51,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public void saveUser(User user) {
-
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-
     }
-
+    @Transactional
     @Override
     public boolean check(User user) {
         if (userRepository.findByUsername(user.getUsername()) == null) {
@@ -66,6 +64,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         }
     }
 
+    @Transactional
     @Override
     public User findByUsername(String email) {
         return userRepository.findByUsername(email);
@@ -82,7 +81,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public void addUser(User user) {
         userRepository.save(user);
-
     }
 
     @Override
