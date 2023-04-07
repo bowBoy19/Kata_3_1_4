@@ -49,12 +49,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return userRepository.findAll();
     }
 
+    @Transactional
     @Override
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
-    @Transactional
+
     @Override
     public boolean check(User user) {
         if (userRepository.findByUsername(user.getUsername()) == null) {
@@ -64,12 +65,12 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         }
     }
 
-    @Transactional
     @Override
     public User findByUsername(String email) {
         return userRepository.findByUsername(email);
     }
 
+    @Transactional
     public boolean deleteUser(int id) {
         if (userRepository.findById(id).isPresent()) {
             userRepository.deleteById(id);
@@ -78,6 +79,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return false;
     }
 
+    @Transactional
     @Override
     public void addUser(User user) {
         userRepository.save(user);
@@ -88,11 +90,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return roleRepository.findAll();
     }
 
+    @Transactional
     public void updateUser(Integer id, User user) {
         user.setId(id);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
-
 }
 
